@@ -32,7 +32,7 @@ public class userController {
     /**
      * @title : 로그인 페이지 이동
      */
-    @GetMapping(value = "main/login")
+    @GetMapping(value = "user/login")
     public String login() {
         return "/user/login";
     }
@@ -47,8 +47,8 @@ public class userController {
     @ResponseBody
     public int loginCheck(UserDTO userDTO, HttpSession session) throws Exception {
 
-        log.info("userId :: " + userDTO.getUserId());
-        log.info("userPw :: " + userDTO.getUserPw());
+        log.info("user_id :: " + userDTO.getUserId());
+        log.info("user_pw :: " + userDTO.getUserPw());
         session.setAttribute("userInfo", "test");
 
         return userService.loginCheck(userDTO);
@@ -63,11 +63,11 @@ public class userController {
     public String loginProc(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setUserId(CmmUtil.nvl((String) request.getParameter("userId")));
-        userDTO.setUserPw(CmmUtil.nvl((String) request.getParameter("userPw")));
+        userDTO.setUserId(CmmUtil.nvl((String) request.getParameter("user_id")));
+        userDTO.setUserPw(CmmUtil.nvl((String) request.getParameter("user_pw")));
 
-        log.info("userId :: " + userDTO.getUserId());
-        log.info("userPw :: " + userDTO.getUserPw());
+        log.info("user_id :: " + userDTO.getUserId());
+        log.info("user_pw :: " + userDTO.getUserPw());
 
 //        log.debug("############################################################");
 //        log.debug("loginCheck >> " + userService.loginCheck(userDTO));
@@ -97,9 +97,9 @@ public class userController {
      * @return :
      * @title : 회원가입 페이지
      */
-    @RequestMapping(value = "/userReg")
+    @RequestMapping(value = "/user/join")
     public String userReg() throws Exception {
-        return "user/reg";
+        return "user/join";
     }
 
 
