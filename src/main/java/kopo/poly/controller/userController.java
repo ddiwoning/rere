@@ -47,8 +47,8 @@ public class userController {
     @ResponseBody
     public int loginCheck(UserDTO userDTO, HttpSession session) throws Exception {
 
-        log.info("user_id :: " + userDTO.getUserId());
-        log.info("user_pw :: " + userDTO.getUserPw());
+        log.info("user_id :: " + userDTO.getUser_id());
+        log.info("user_pw :: " + userDTO.getUser_pw());
         session.setAttribute("userInfo", "test");
 
         return userService.loginCheck(userDTO);
@@ -63,16 +63,12 @@ public class userController {
     public String loginProc(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setUserId(CmmUtil.nvl((String) request.getParameter("user_id")));
-        userDTO.setUserPw(CmmUtil.nvl((String) request.getParameter("user_pw")));
+        userDTO.setUser_id(CmmUtil.nvl((String) request.getParameter("user_id")));
+        userDTO.setUser_pw(CmmUtil.nvl((String) request.getParameter("user_pw")));
 
-        log.info("user_id :: " + userDTO.getUserId());
-        log.info("user_pw :: " + userDTO.getUserPw());
+        log.info("user_id :: " + userDTO.getUser_id());
+        log.info("user_pw :: " + userDTO.getUser_pw());
 
-//        log.debug("############################################################");
-//        log.debug("loginCheck >> " + userService.loginCheck(userDTO));
-//        log.debug("loginProc >> " + userService.loginProc(userDTO));
-//        log.debug("############################################################");
         log.info("Service : ");
         UserDTO user = new UserDTO();
         user = userService.loginProc(userDTO);
@@ -84,7 +80,7 @@ public class userController {
             model.addAttribute("msg", "오류");
             model.addAttribute("url", "/login");
         } else {
-            session.setAttribute("userInfo", user.getUserName());
+            session.setAttribute("userInfo", user.getUser_name());
             model.addAttribute("msg", "성공");
             model.addAttribute("url", "/main");
         }
@@ -93,8 +89,6 @@ public class userController {
     }
 
     /**
-     * @param : UserDTO
-     * @return :
      * @title : 회원가입 페이지
      */
     @RequestMapping(value = "/user/join")
@@ -104,15 +98,13 @@ public class userController {
 
 
     /**
-     * @param : UserDTO
-     * @return :
      * @title : 회원가입
      */
     @PostMapping(value = "/signUp")
     @ResponseBody // ajax사용하기 위한 어노테이션
     public int signUp(UserDTO userDTO, Model model) throws Exception {
-        log.info("userId :: " + userDTO.getUserId());
-        log.info("userPw :: " + userDTO.getUserPw());
+        log.info("userId :: " + userDTO.getUser_id());
+        log.info("userPw :: " + userDTO.getUser_pw());
 
         return userService.signUp(userDTO);
     }
@@ -125,10 +117,10 @@ public class userController {
 
 
     //회원 정보 수정
-    @RequestMapping(value = "/memberModify")
-    public String memberModify(UserDTO userDTO) throws Exception {
+    @RequestMapping(value = "/memberChange")
+    public String memberChange(UserDTO userDTO) throws Exception {
 
-        return "/user/memberModify";
+        return "/user/memberChange";
     }
 
     /*@RequestMapping(value = "/mypage")

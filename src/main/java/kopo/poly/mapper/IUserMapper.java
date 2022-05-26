@@ -16,7 +16,7 @@ public interface IUserMapper {
     int loginCheck(UserDTO userDTO) throws Exception;
 
     //회원정보 조회
-    UserDTO memberModify(UserDTO userDTO) throws Exception;
+    UserDTO memberChange(UserDTO userDTO) throws Exception;
 
     //test
     String test() throws Exception;

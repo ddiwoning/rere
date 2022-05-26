@@ -27,10 +27,11 @@
     </script>
 </head>
 <body>
+<h3>로그인 화면</h3>
 <form id="loginForm" action="/loginProc", method="post">
-    아이디:<input type="text" id="user_id" name="user_id"/><br/>
-    비밀번호:<input type="password" id="user_pw" name="user_pw"/><br/>
-    <%--<input type="submit" value="로그인">--%>
+    아이디 : <input type="text" id="user_id" name="user_id"/><br/>
+    비밀번호 : <input type="password" id="user_pw" name="user_pw"/><br/>
+    <br/>
     <input type="submit" value="로그인">
 
 
