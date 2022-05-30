@@ -14,21 +14,17 @@
             USER_AGE,
             USER_BIRTH,
             USER_NEWADDR,
-            USER_OLDADDR,
-            USER_PHONE,
-            JOIN_DT;
+            USER_PHONE
         )
         VALUES(
-        #{user_name},
-        #{user_id},
-        #{user_pw},
-        #{user_gender},
-        #{user_age},
-        #{user_birth},
-        #{user_newaddr},
-        #{user_oldaddr},
-        #{user_phone},
-        SYSDATE
+            #{user_name},
+            #{user_id},
+            #{user_pw},
+            #{user_gender},
+            #{user_age},
+            #{user_birth},
+            #{user_newaddr},
+            #{user_phone}
         )
     </insert>
 
@@ -39,33 +35,52 @@
          WHERE EMAIL = #{email}
      </select> -->
 
-    <!--수정-->
+    <!-- 로그인 체크-->
     <select id="loginProc" resultType="UserDTO">
-        SELECT USER_NAME AS 'userName'
-
-        FROM MyDB
-        WHERE USER_ID = #{user_id} AND USER_PW = #{user_pw}
+        SELECT
+            *
+        FROM
+            USER_INFO
+        WHERE
+            USER_ID = #{user_id}
+            AND USER_PW = #{user_pw}
     </select>
 
+    <!-- 로그인 체크-->
     <select id="loginCheck" parameterType="UserDTO" resultType="int">
-        SELECT COUNT(*)
-        FROM MyDB
-        WHERE USER_ID = #{user_id}
-          AND USER_PW = #{user_pw}
+        SELECT
+            COUNT(*)
+        FROM
+            USER_INFO
+        WHERE
+            USER_ID = #{user_id}
+            AND USER_PW = #{user_pw}
     </select>
 
     <select id="userInfo" resultType="UserDTO" parameterType="UserDTO">
         SELECT
-            USER_NAME
-             ,   USER_EMAIL
-             ,   USER_NICKNAME
-             ,   USER_GENDER
+            *
         FROM
-            MyDB
+            USER_INFO
         WHERE USER_ID = #{user_id}
     </select>
-
-
+    <select id="findUser" parameterType="UserDTO" resultType="UserDTO">
+        SELECT
+            *
+        FROM
+            USER_INFO
+        WHERE
+            1=1
+            <if test="find_lf == 'PW' and user_id != null and user_name != null and user_phone != null">
+                AND USER_ID = #{user_id}
+                AND USER_NAME = #{user_name}
+                AND USER_PHONE = #{user_phone}
+            </if>
+            <if test="find_lf == 'ID' and user_name != null and user_phone != null">
+                AND USER_NAME = #{user_name}
+                AND USER_PHONE = #{user_phone}
+            </if>
+    </select>
 
     <!-- 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 -->
     <select id="getUserLoginCheck" parameterType="UserDTO" resultType="UserDTO">
@@ -74,5 +89,14 @@
         WHERE USER_ID = #{user_id}
           AND PASSWORD = #{user_pw}
     </select>
+
+    <update id="updateUserPw" parameterType="UserDTO">
+        UPDATE
+            USER_INFO
+        SET
+            USER_PW = #{user_pw}
+        WHERE
+            USER_SEQ = #{user_seq}
+    </update>
 
 </mapper>

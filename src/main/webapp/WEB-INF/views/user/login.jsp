@@ -16,7 +16,7 @@
                 , success: function(res) {
                     if (res > 0) {
                         alert("환영합니다!");
-                        location.href = "/main";
+                        location.href = "/";
                     } else {
                         alert("로그인에 실패하였습니다. 다시 시도해주세요.")
                     }
@@ -28,13 +28,14 @@
 </head>
 <body>
 <h3>로그인 화면</h3>
-<form id="loginForm" action="/loginProc", method="post">
+<form id="loginForm">
     아이디 : <input type="text" id="user_id" name="user_id"/><br/>
     비밀번호 : <input type="password" id="user_pw" name="user_pw"/><br/>
     <br/>
-    <input type="submit" value="로그인">
-
-
+    <input type="button" value="로그인" id="userLoginSave">
+    <input type="button" value="회원가입" onclick="location.href='/user/join'">
+    <input type="button" value="아이디찾기" onclick="location.href='/find/id'">
+    <input type="button" value="비밀번호찾기" onclick="location.href='/find/pw'">
 </form>
 </body>
 </html>

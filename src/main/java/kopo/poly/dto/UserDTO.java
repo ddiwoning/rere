@@ -10,13 +10,14 @@ public class UserDTO {
 
 
     private int user_seq;  // 기본키
-    private int user_name;
+    private String find_lf;
+    private String user_name;
     private String user_id;
     private String user_pw;
     private String user_gender;
-    private String user_age;
-    private String user_birth;
-    private int user_newaddr;
+    private int user_age;
+    private int user_birth;
+    private String user_newaddr;
     private String user_phone;
     private String join_dt;
 

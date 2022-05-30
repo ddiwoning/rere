@@ -1,4 +1,4 @@
-package kopo.poly.mapper;
+package kopo.poly.persistance.mapper;
 
 import kopo.poly.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,5 +23,14 @@ public interface IUserMapper {
 
     // 로그인
     UserDTO loginProc(UserDTO userDTO) throws Exception;
+
+    // 회원정보 조회
+    UserDTO userInfo(UserDTO userDTO) throws Exception;
+
+    // 아이디, 비밀번호 찾기용 회원정보 조회
+    UserDTO findUser(UserDTO userDTO) throws Exception;
+
+    // 비밀번호 신규발급
+    int updateUserPw(UserDTO userDTO) throws Exception;
 
 }

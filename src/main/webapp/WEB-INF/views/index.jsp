@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello World
+	Hello World (${sessionScope.userInfo.user_name})
+
 </body>
 </html>

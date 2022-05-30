@@ -6,6 +6,7 @@ import kopo.poly.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,18 +26,26 @@ public class userController {
 
     @GetMapping(value = "/")
     public String start(HttpSession session) {
-        session.setAttribute("userInfo", "TEst");
-        return "redirect:/login";
+        if(!StringUtils.isEmpty(session.getAttribute("userInfo"))){
+            try{
+                UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+                if(!StringUtils.isEmpty(userDTO.getUser_id())){
+                    return "/index";
+                }
+            }catch(Exception e){
+                return "redirect:/user/login";
+            }
+        }
+        return "redirect:/user/login";
     }
 
     /**
      * @title : 로그인 페이지 이동
      */
-    @GetMapping(value = "user/login")
+    @GetMapping(value = "/user/login")
     public String login() {
         return "/user/login";
     }
-
 
     /**
      * @param : UserDTO
@@ -46,12 +55,13 @@ public class userController {
     @PostMapping(value = "/loginCheck")
     @ResponseBody
     public int loginCheck(UserDTO userDTO, HttpSession session) throws Exception {
+        int record = userService.loginCheck(userDTO);
+        if(record > 0){
 
-        log.info("user_id :: " + userDTO.getUser_id());
-        log.info("user_pw :: " + userDTO.getUser_pw());
-        session.setAttribute("userInfo", "test");
-
-        return userService.loginCheck(userDTO);
+            UserDTO userInfo = userService.userInfo(userDTO);
+            session.setAttribute("userInfo", userInfo);
+        }
+        return record;
     }
 
     /**
@@ -59,6 +69,7 @@ public class userController {
      * @return : login
      * @title : 로그인
      */
+    /*
     @PostMapping(value = "/loginProc")
     public String loginProc(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         UserDTO userDTO = new UserDTO();
@@ -87,13 +98,14 @@ public class userController {
 
         return "/red";
     }
+    */
 
     /**
      * @title : 회원가입 페이지
      */
     @RequestMapping(value = "/user/join")
     public String userReg() throws Exception {
-        return "user/join";
+        return "/user/join";
     }
 
 
@@ -103,9 +115,6 @@ public class userController {
     @PostMapping(value = "/signUp")
     @ResponseBody // ajax사용하기 위한 어노테이션
     public int signUp(UserDTO userDTO, Model model) throws Exception {
-        log.info("userId :: " + userDTO.getUser_id());
-        log.info("userPw :: " + userDTO.getUser_pw());
-
         return userService.signUp(userDTO);
     }
 
@@ -140,5 +149,48 @@ public class userController {
         model.addAttribute(userDTO);
         return "user/mypage";
     }*/
+
+    /**
+     * @title : 주소찾기 페이지
+     */
+    @RequestMapping(value = "/user/search/addr")
+    public String userSearchAddr() throws Exception {
+        return "/user/addr";
+    }
+
+    /**
+     * 아이디찾기 페이지
+     */
+    @RequestMapping(value = "/find/id")
+    public String findId() throws Exception {
+        return "/user/findId";
+    }
+
+    /**
+     * 아이디찾기 API
+     */
+    @PostMapping(value = "/api/find/id")
+    @ResponseBody // ajax사용하기 위한 어노테이션
+    public UserDTO apiFindId(UserDTO userDTO, Model model) throws Exception {
+        return userService.findUser(userDTO);
+    }
+
+    /**
+     * 비밀번호찾기 페이지
+     */
+    @RequestMapping(value = "/find/pw")
+    public String findPw() throws Exception {
+        return "/user/findPw";
+    }
+
+    /**
+     * 비밀번호찾기 API
+     */
+    @PostMapping(value = "/api/find/pw")
+    @ResponseBody // ajax사용하기 위한 어노테이션
+    public int apiFindPw(UserDTO userDTO, Model model) throws Exception {
+        int record = userService.updateUserPw(userDTO);
+        return record;
+    }
 
 }
