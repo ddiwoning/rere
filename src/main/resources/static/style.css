@@ -1,0 +1,16 @@
+body{background:#fed3e7}
+
+.regline a{text-decoration-line: none;color:#000 !important;opacity:0.6}
+.reglink{border:none ;border-right:1px solid #999}
+.form-control{background:#f0f0f0;border:none}
+.logo { display: block; font-size: 2rem; color: #333; font-weight: 700; text-transform: uppercase; }
+.mBtn a { display: block; text-indent: -9999px; width: 24px; height: 24px; background: url('images/menu.png') no-repeat; margin-top: 20px; }
+.mNav { z-index: 2; position: fixed; background-color: #fff; top: 0; left: -100%; width: 80%; height: 100%; transition: all 0.3s ease; }
+.mNav.on { left: 0; }
+.mNav a {text-decoration-line: none;color:#000 !important;}
+.bg-shadow { position: fixed; top: 0; right: 0; width: 100%; height: 100%; z-index: 1; background: rgba(0, 0, 0, 0.7); display: none; cursor: pointer; }
+
+.sub { position: relative; padding-top: 30px; }
+.closeBtn { position: absolute; top: 0; right: 0; display: block; }
+.closeBtn a { display: block; text-indent: -9999px; width: 24px; height: 24px; background: url('images/close.png') no-repeat; margin-top: 25px; margin-right: 20px; }
+.sub li a { display: block; font-size: 1.4rem; color: #333; padding: 10px 20px; border-bottom: 1px solid #d1d4d8; }

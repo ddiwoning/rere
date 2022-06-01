@@ -1,0 +1,64 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+	<div class="container">
+		<div class="col-lg-4" style="text-align:center;font-size:30px;font-weight:800;margin-top:30px;">
+			아이디 / 비밀번호 찾기
+		</div>
+
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4" style="background:#fff">
+			<div class="jumbotron" style="padding-top: 20px;padding-bottom: 20px;width:90%;margin:0 auto;">
+				<h5> 아이디 찾기</h5>
+				<form th:action="@{/user/findid}" th:object="${FindIdPwd}" method="post" onsubmit="return frmbtn(this)">
+					<nav th:replace="form_errors :: formErrorsFragment"></nav>
+
+					<div class="mb-3">
+						<input type="text" th:field="*{userhp}" class="form-control" placeholder="휴대폰번호">
+					</div>
+
+					<button type="submit" class="btn btn-primary" style="width:100%">확인</button>
+				</form>
+			</div>
+		</div>
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4" style="background:#fff;margin-top:20px">
+			<div class="jumbotron" style="padding-top: 20px;padding-bottom: 20px;width:90%;margin:0 auto;">
+				<h5> 비밀번호 찾기</h5>
+				<form th:action="@{/user/signup}" th:object="${userCreateForm}2" method="post" onsubmit="return frmbtn2(this)">
+					<nav th:replace="form_errors :: formErrorsFragment"></nav>
+					<div class="mb-3">
+						<input type="text" th:field="*{usernick}" class="form-control" placeholder="닉네임">
+					</div>
+					<div class="mb-3">
+						<input type="text" th:field="*{username}" class="form-control" placeholder="아이디(이메일)">
+					</div>
+
+					<button type="submit" class="btn btn-primary" style="width:100%">확인</button>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<script>
+function frmbtn(f){
+	if($("#userhp").val() == ''){
+		MsgBox.Alert("휴대폰번호 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+
+	return true;
+}
+function frmbtn2(f){
+	if($("#usernick").val() == ''){
+		MsgBox.Alert("이름을 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#useremail").val() == ''){
+		MsgBox.Alert("이메일을 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	return true;
+}
+</script>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lagn="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>Hello, sbb!</title>
+</head>
+<body>
+<!-- 네비게이션바 -->
+<nav th:replace="navbar :: navbarFragment"></nav>
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<div class="modal" id="msg_popup" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- MSG Space-->
+            </div>
+            <div class="modal-footer" id="btn_confirm">
+                <button type="button" id="confirm_yes" class="btn btn-primary" data-dismiss="modal" >YES</button>
+                <button type="button" id="confirm_no"class="btn btn-secondary" data-dismiss="modal">NO</button>
+            </div>
+            <div class="modal-footer" id="btn_alert">
+                <button type="button" id="alert_ok"class="btn btn-primary" data-dismiss="modal" >OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/bootstrap.min.js}"></script>
+<script th:src="@{/common.js}"></script>
+</body>
+</html>

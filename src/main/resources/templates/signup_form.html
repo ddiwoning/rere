@@ -1,0 +1,80 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <div class="container">
+        <div class="col-lg-4" style="text-align:center;font-size:30px;font-weight:800;margin-top:30px;">
+            회원가입
+        </div>
+
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4" style="background:#fff">
+            <div class="jumbotron" style="padding-top: 20px;padding-bottom: 20px;width:90%;margin:0 auto;">
+                <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post" name="frm" onsubmit="return frmbtn(this);">
+                    <nav th:replace="form_errors :: formErrorsFragment"></nav>
+                    <div class="mb-3">
+                        <input type="text" th:field="*{usernick}" id="usernick" class="form-control" placeholder="닉네임">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" th:field="*{username}" id="username" class="form-control" placeholder="아이디(이메일)">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" th:field="*{password1}" id="password1" class="form-control" placeholder="비밀번호">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" th:field="*{password2}" id="password2" class="form-control" placeholder="비밀번호확인">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" th:field="*{userbirthday}" id="userbirthday" class="form-control" placeholder="생년월일">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" th:field="*{userhp}" id="userhp" class="form-control" placeholder="휴대폰번호">
+                    </div>
+                    <div class="mb-3" style="background:#f0f0f0;border-radius:5px;height:35px;line-height:35px">
+                        <label style="padding-left:10px;color:#666">성별</label><input type="radio" th:field="*{usersex}" id="usersexM" value="M"  style="margin-left:50px;#666"><label for="usersexM">남</label> <input type="radio" th:field="*{usersex}"  value="F" style="margin-left:50px;color:#666" id="usersexF"><label for="usersexF">여</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" th:field="*{useraddress}" id="useraddress" class="form-control" placeholder="주소">
+                    </div>
+                    <div class="mb-3">
+
+                        <input type="text" th:field="*{userbloodtype}" class="form-control" placeholder="혈액형">
+                    </div>
+                    <button  class="btn btn-primary" style="width:100%">회원가입</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<script>
+function frmbtn(f){
+	if($("#usernick").val() == ''){
+		MsgBox.Alert("닉네임을 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#username").val() == ''){
+		MsgBox.Alert("아이디를 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#password1").val() == ''){
+		MsgBox.Alert("비밀번호를 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#password2").val() == ''){
+		MsgBox.Alert("비밀번호확인을 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#userhp").val() == ''){
+		MsgBox.Alert("휴대폰번호를 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	if($("#useraddress").val() == ''){
+		MsgBox.Alert("주소를 입력하세요.!", function() {MsgBox.Alert("OK");});
+		return false;
+	}
+	return true;
+}
+</script>
+</html>
